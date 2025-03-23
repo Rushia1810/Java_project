@@ -26,7 +26,29 @@ public class User {
         return username + "," + password + "," + role;
     }
     public static void register(){
-        
+        try{
+            Scanner scanner = new Scanner(System.in);
+            BufferedWriter writer = new BufferedWriter(new FileWriter("UserList.txt",true));
+            //add user to file
+            System.out.print("Enter name: ");
+            username = scanner.nextLine();
+            System.out.print("Enter password: ");
+            password = scanner.nextLine();
+            while (password.length() < 8) {
+                System.out.println("password too short");
+                System.out.print("Enter password: ");
+                password = scanner.nextLine();
+            }
+            System.out.print("Enter role: ");
+            role = scanner.nextLine();
+            writer.write(toString());
+            writer.newLine();
+            scanner.close();
+            writer.close();
+        }catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+    }
 
     }   
 }
