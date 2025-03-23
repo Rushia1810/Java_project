@@ -26,15 +26,7 @@ public class User {
         return username + "," + password + "," + role;
     }
     public static void register(){
-        try{
-            File UserFile = new File("UserList.txt");
-            if(!UserFile.exists()){
-                System.out.println("File doesnt exist");
-            }
-            PrintWriter writer = new PrintWriter(new FileWriter(UserFile,true));
-            BufferedReader reader = new BufferedReader(new FileReader(UserFile));
-
-        }
+        
 
     }   
 }
