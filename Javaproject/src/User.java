@@ -6,7 +6,7 @@ public class User {
     private String password;
     private String role;
 
-    public User(String username,String password,String role){
+    public User(){
         this.username = username;
         this.password = password;
         this.role = role;
@@ -25,7 +25,7 @@ public class User {
     public String toString(){
         return username + "," + password + "," + role;
     }
-    public static void register(){
+    public void register(){
         try{
             Scanner scanner = new Scanner(System.in);
             BufferedWriter writer = new BufferedWriter(new FileWriter("UserList.txt",true));
@@ -48,6 +48,23 @@ public class User {
         }catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }
+    }
+    public void usermenu(){
+        Scanner scanner = new Scanner(System.in);
+        int choice = 0;
+        System.out.println("this is a menu");
+        System.out.println("1.register");
+        System.out.println("2.login");
+        System.out.print("Enter a number: ");
+        choice = scanner.nextInt();
+        switch(choice){
+            case 1:
+            register();
+            break;
+            case 2:
+            System.out.println("login");;
+            break;            
+        } scanner.close();
     }
 
     }   
