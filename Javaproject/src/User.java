@@ -66,9 +66,8 @@ public class User {
             break;            
         } scanner.close();
     }
+}   
 
-    }   
-}
 
     
    
