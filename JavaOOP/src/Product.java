@@ -1,3 +1,8 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class Product {
     private String productID;
     private String productName;
@@ -6,6 +11,7 @@ public class Product {
     private double productPrice;
     private String productDesc;
     private int productWarranty;
+    private static int productCount;
 
     public Product(){
         
@@ -18,6 +24,7 @@ public class Product {
         this.productPrice = productPrice;
         this.productDesc = productDesc;
         this.productWarranty = productWarranty;
+        productCount++;
     }
     public String getproductID(){
         return productID;
@@ -40,6 +47,9 @@ public class Product {
     public int getproductWarranty(){
         return productWarranty;
     }
+    public static int getproductCount(){
+        return productCount;
+    }   
     public void setproductID(String productID){
         this.productID = productID;
     }
@@ -61,11 +71,90 @@ public class Product {
     public void setproductWarranty(int productWarranty){
         this.productWarranty = productWarranty;
     }
-    @Override   
-    public String toString(){
-        return productID + "," + productName + "," + productQuantity + "," + productBrand + "," + "RM" + productPrice + "," + productDesc + "," + productWarranty ;
+    public static void setproductCount(int productCount){
+        Product.productCount = productCount;
     }
     
+    @Override   
+    public String toString(){
+        return productID + "," + productName + "," + productQuantity + "," + productBrand + "," + productPrice + "," + productDesc + "," + productWarranty;
+    }
 
+    public static void allProductMenu(){
+        productCount = 0;
+    try {
+        BufferedReader reader = new BufferedReader(new FileReader("ProductList"));
+        String line;
+        Product ProductArray[] = new Product[100];
+        int i = 0;
+
+        while ((line = reader.readLine()) != null) {
+            String[] productInfo = line.split(",");
+			String productID = productInfo[0];
+            String productName = productInfo[1];
+            int productQuantity = Integer.parseInt(productInfo[2]);
+            String productBrand = productInfo[3];
+            double productPrice = Double.parseDouble(productInfo[4]);
+            String productDesc = productInfo[5];
+            int productWarranty = Integer.parseInt(productInfo[6]);
+
+            if (productID.startsWith("KB")){
+            	String layout = productInfo[6];
+                String type = productInfo[7];
+                ProductArray[i] = new Keyboard(productID, productName, productQuantity, productBrand, productPrice, productDesc, productWarranty, layout, type);
+				i++;
+			} else if (productID.startsWith("MS")) {
+                int weight = Integer.parseInt(productInfo[6]);
+                String isWired = productInfo[7];
+                ProductArray[i] = new Mouse(productID, productName, productQuantity, productBrand, productPrice, productDesc, productWarranty, weight, isWired);
+                i++;
+            } else if (productID.startsWith("MT")) {
+                String resolution = productInfo[6];
+                int refreshRate = Integer.parseInt(productInfo[7]);
+                ProductArray[i] = new Monitor(productID, productName, productQuantity, productBrand, productPrice, productDesc, productWarranty, resolution, refreshRate);
+                i++;
+            } else if (productID.startsWith("HS")) {
+                int driver = Integer.parseInt(productInfo[6]);
+                String surroundSound = productInfo[7];
+                ProductArray[i] = new Headset(productID, productName, productQuantity, productBrand, productPrice, productDesc, productWarranty, driver, surroundSound);
+                i++;
+            } 
+        }           
+         System.out.println("\nTotal Available Item:" + productCount);
+  		 System.out.println("==========================");
+            for (i = 0; i < ProductArray.length && ProductArray[i] != null; i++) {
+                System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                System.out.println(" Item " + (i+1) + ":" );
+                System.out.println(" --------");
+                if (ProductArray[i] instanceof Keyboard){
+                    System.out.println(" Item Type\t\t: Keyboard");
+                }else if (ProductArray[i] instanceof Mouse){
+                    System.out.println(" Item Type\t\t: Mouse");
+                }else if (ProductArray[i] instanceof Monitor){
+                    System.out.println(" Item Type\t\t: Monitor");
+                }else if (ProductArray[i] instanceof Headset){           
+                    System.out.println(" Item Type\t\t: Headset");
+    		    }
+    		    System.out.println(ProductArray[i].display());
+    		
+			} 
+				
+        reader.close();
+   	    }catch (IOException e){
+            e.printStackTrace();
+        }
+
+	}
+    
+    public String display()
+	{        
+	return " ProductID\t\t: " + productID + 
+		   "\n Name\t\t\t: " + productName + 
+		   "\n Quantity\t\t: " + productQuantity + 
+		   "\n Brand\t\t\t: " + productBrand +
+           "\n Price\t\t\t: RM" + productPrice +
+           "\n Description\t\t: " + productDesc;
+	}
     
 }
+

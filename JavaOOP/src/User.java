@@ -1,18 +1,19 @@
 public class User {
     private String username;
     private String password;
+    private String email;
+    private long phoneNumber;
     private String role;
-    private Cart cart;
     
         public User(){
     
-        }
-    
-        public User(String username, String password, String role, Cart cart){
+        }    
+        public User(String username, String password, String role, String email, long phoneNumber){
             this.username = username;
             this.password = password;
-            this.role = role;
-            this.cart = cart;
+            this.email = email;
+            this.phoneNumber = phoneNumber;
+            this.role = role;  
         }
         //get methods
         public String getusername(){
@@ -23,9 +24,12 @@ public class User {
         }
         public String getrole(){
             return role;
+        }     
+        public String getemail(){
+            return email;
         }
-        public Cart getcart(){
-            return cart;
+        public long getphoneNumber(){
+            return phoneNumber;
         }
         //set methods
         public void setusername(String username){
@@ -36,30 +40,16 @@ public class User {
         }
         public void setrole(String role){
             this.role = role;
+        }    
+        public void setemail(String email){
+            this.email = email;
         }
-        public void setcart(Cart cart){
-            this.cart = cart;
-        }
-        
-        public static void viewCart(){
-            Cart.displaycart();
-            
-        }
-        public static void addtoCart(Product product){
-            Cart.addProduct(product);
-        }
-        public static void removefromCart(Product product){
-            Cart.removeProduct(product);
-        }
-        public static void checkout(){
-            //payment and receipt logic here
-            System.out.println("Checkout successful!");
-            Cart.clearCart();
+        public void setphoneNumber(long phoneNumber){
+            this.phoneNumber = phoneNumber;
         }
         @Override
         public String toString(){
-            return username + "," + password + "," + role;
+            return username + "," + password + "," + role + "," + email + "," + phoneNumber;
         }
-
-       
+    
 }
