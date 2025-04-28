@@ -1,10 +1,5 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;;
 
 public class Headset extends Product{
     private int driver;
@@ -39,7 +34,7 @@ public class Headset extends Product{
     }
     @Override
     public String toString(){
-        return super.toString() + "," + driver + "," + surroundSound;
+        return super.toString() + "," + driver + "," + surroundSound + "\n";
     }
     public static void addHeadset(){
         Headset headset = new Headset();
@@ -83,70 +78,114 @@ public class Headset extends Product{
             } while (isDuplicate);
             reader.close();
             
-            System.out.print("Enter Headset Name: ");
-            headset.setproductName(scanner.nextLine());
+            do {
+                System.out.print("Enter Headset Name: ");
+                headset.setproductName(scanner.nextLine());
+                if (headset.getproductName().isEmpty()) {
+                    System.out.println("Headset Name cannot be empty.");
+                }
+            } while (headset.getproductName().isEmpty());
 
             do {
-                System.out.print("Enter Headset Quantity: ");
-                headset.setproductQuantity(scanner.nextInt());
-                if (headset.getproductQuantity() <1) {
-                    System.out.println("Quantity must be >= 1");
+                try{
+                    System.out.print("Enter Headset Quantity: ");
+                    headset.setproductQuantity(scanner.nextInt());
+                    if (headset.getproductQuantity() <1) {
+                        System.out.println("Quantity must be >= 1");
+                    }
+                }catch (Exception e){
+                    System.out.println("Invalid input! Please enter a number.");
+                    scanner.nextLine(); // Clear the invalid input
                 }
             } while (headset.getproductQuantity() <1);
             scanner.nextLine();
             
-        	
-            System.out.print("Enter Headset Brand: ");
-            headset.setproductBrand(scanner.nextLine());
+        	do{
+                System.out.print("Enter Headset Brand: ");
+                headset.setproductBrand(scanner.nextLine());
+                if (headset.getproductBrand().isEmpty()) {
+                    System.out.println("Headset Brand cannot be empty.");
+                }
+            } while (headset.getproductBrand().isEmpty());
 
             do {
-                System.out.print("Enter Headset Price: ");
-                headset.setproductPrice(scanner.nextDouble());
-                if (headset.getproductPrice() <= 0) {
-                    System.out.println("Price must be > 0");
+                try{
+                    System.out.print("Enter Headset Price: ");
+                    headset.setproductPrice(scanner.nextDouble());
+                    if (headset.getproductPrice() <= 0) {
+                        System.out.println("Price must be > 0");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Invalid input! Please enter a number.");
+                    scanner.nextLine(); // Clear the invalid input
                 }
             } while (headset.getproductPrice() <= 0);
             scanner.nextLine();
 
-            System.out.print("Enter Headset Description: ");
-            headset.setproductDesc(scanner.nextLine());
+            do {
+                System.out.print("Enter Headset Description: ");
+                headset.setproductDesc(scanner.nextLine());
+                if (headset.getproductDesc().isEmpty()) {
+                    System.out.println("Headset Description cannot be empty.");
+                }
+            } while (headset.getproductDesc().isEmpty());
 
             do {
-                System.out.print("Enter Headset Warranty: ");
-                headset.setproductWarranty(scanner.nextInt());
-                if (headset.getproductWarranty() < 0) {
-                    System.out.println("Warranty must be >= 0");
+                try{
+                    System.out.print("Enter Headset Warranty: ");
+                    headset.setproductWarranty(scanner.nextInt());
+                    if (headset.getproductWarranty() < 0) {
+                        System.out.println("Warranty must be >= 0");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Invalid input! Please enter a number.");
+                    scanner.nextLine(); // Clear the invalid input
                 }
             } while (headset.getproductWarranty() < 0);
             scanner.nextLine();
 
             do {
-                System.out.print("Enter Headset Driver: ");
-                headset.setDriver(scanner.nextInt());
-                if (headset.getDriver() <=  0){
-                    System.out.println("Driver must be >= 0");
+                try{
+                    System.out.print("Enter Headset Driver: ");
+                    headset.setDriver(scanner.nextInt());
+                    if (headset.getDriver() <= 0){
+                        System.out.println("Driver must be > 0");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Invalid input! Please enter a number.");
+                    scanner.nextLine(); // Clear the invalid input
                 }
-            } while (headset.getDriver() < 0);
+            } while (headset.getDriver() <= 0);
             scanner.nextLine();
 
-            System.out.print("Enter Headset Surroundsound: ");
-            headset.setSurroundSound(scanner.nextLine());
+            do {
+                System.out.print("Enter Headset Surroundsound: ");
+                headset.setSurroundSound(scanner.nextLine());
+                if (headset.getSurroundSound().isEmpty()) {
+                    System.out.println("Surroundsound cannot be empty.");
+                }
+            } while (headset.getSurroundSound().isEmpty());
 			
 		    //comfirmation
 			System.out.print("\n\n================================================");
-			System.out.print("\nComfirm Adding? (Y/N): ");
-            String comfirmAdding = scanner.nextLine();
-            
-            if (comfirmAdding.equalsIgnoreCase("y")){
-                writer.write(headset.toString());
-                Product.setproductCount(productCount + 1);
-                System.out.println("\n*Headset added successfully.");
-                writer.close();
-                App.adminmenu();
-            } else if (comfirmAdding.equalsIgnoreCase("n")){
-                System.out.println("\n* Fail to add Headset.");
-                App.adminmenu();
-            }
+            String comfirmAdding;
+            do{
+                System.out.println("Comfirm Adding? (Y/N): ");
+                comfirmAdding = scanner.nextLine();
+                
+                if (comfirmAdding.equalsIgnoreCase("y")){
+                    writer.write(headset.toString());
+                    Product.setproductCount(productCount + 1);
+                    System.out.println("\n*Headset added successfully.");
+                    writer.close();
+                    App.adminmenu();
+                } else if (comfirmAdding.equalsIgnoreCase("n")){
+                    System.out.println("\n* Fail to add Headset.");
+                    App.adminmenu();
+                } else {
+                    System.out.println("Invalid input");
+                }
+            } while (!comfirmAdding.equalsIgnoreCase("y") && !comfirmAdding.equalsIgnoreCase("n"));
  		
         } catch (IOException e) {
             e.printStackTrace();
@@ -168,7 +207,31 @@ public class Headset extends Product{
                 String[] productinfo = line.split(",");
                 if (productinfo[0].equals(productID)) {
                     found = true;
-                    System.out.println("Headset with ID " + productID + " has been removed.");
+                    System.out.println("\n Product found:");
+                    System.out.println(" Product Type\t: Headset");
+                	System.out.println(" ProductID\t: " + productinfo[0]);
+                	System.out.println(" Name\t\t: " + productinfo[1]);
+                	System.out.println(" Quantity \t: " + productinfo[2]);
+                	System.out.println(" Brand\t\t: " + productinfo[3]);
+                	System.out.println(" Price\t\t: " + "RM" + productinfo[4]);
+              		System.out.println(" Description\t: " + productinfo[5]);
+                    System.out.println(" Warranty\t: " + productinfo[6] + " months");
+                    System.out.println(" Driver\t\t: " + productinfo[7]);
+                    System.out.println(" SurroundSound\t\t: " + productinfo[8]);
+                    String choice;
+                    do{
+                        System.out.println("\nDo you want to delete this product? (Y/N): ");
+                        Scanner scanner = new Scanner(System.in);
+                        choice = scanner.nextLine();
+                        if (choice.equalsIgnoreCase("y")) {
+                            System.out.println("Headset with ID " + productID + " has been removed.");
+                        } else if (choice.equalsIgnoreCase("n")) {
+                            writer.write(line);
+                            writer.newLine();
+                        } else {
+                            System.out.println("Invalid input");
+                        }
+                    } while (!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n"));
                 } else {
                     writer.write(line);
                     writer.newLine();
@@ -203,8 +266,126 @@ public class Headset extends Product{
                 String[] productinfo = line.split(",");
                 if (productinfo[0].equals(productID)) {
                     found = true;
-                    System.out.println("Modifying Headset with ID " + productID + ":");
-                    // Add code to modify the headset details here
+                    System.out.println("\n Product found:");
+                    System.out.println(" Product Type\t: Headset");
+                	System.out.println(" ProductID\t: " + productinfo[0]);
+                	System.out.println(" Name\t\t: " + productinfo[1]);
+                	System.out.println(" Quantity \t: " + productinfo[2]);
+                	System.out.println(" Brand\t\t: " + productinfo[3]);
+                	System.out.println(" Price\t\t: " + "RM" + productinfo[4]);
+              		System.out.println(" Description\t: " + productinfo[5]);
+                    System.out.println(" Warranty\t: " + productinfo[6] + " months");
+                    System.out.println(" Driver\t\t: " + productinfo[7]);
+                    System.out.println(" SurroundSound\t\t: " + productinfo[8]);
+                    String choice;
+                    do{
+                        System.out.print("\n\nDo you want to modify this product? (Y/N): ");
+                        Scanner scanner = new Scanner(System.in);
+                        choice = scanner.nextLine();
+                        if (choice.equalsIgnoreCase("y")) {
+                            String oldproductName = productinfo[1];
+                            System.out.print("Enter new Headset Name: ");
+                            productinfo[1] = scanner.nextLine();
+                            if (productinfo[1].isEmpty()) {
+                                productinfo[1] = oldproductName; // Keep the old name if new name is empty     
+                                
+                            }
+                            
+                            String oldproductQuantity = productinfo[2];
+                            do {
+                                System.out.print("Enter new Headset Quantity: ");
+                                productinfo[2] = scanner.nextLine();
+                                try {
+                                    if (Integer.parseInt(productinfo[2]) < 1) {
+                                        System.out.println("Quantity must be >= 1");
+                                    }
+                                } catch (NumberFormatException e) {
+                                    productinfo[2] = oldproductQuantity;
+                                }
+                            } while (Integer.parseInt(productinfo[2]) < 1);
+
+                            
+                            
+                            String oldproductBrand = productinfo[3];
+                            System.out.print("Enter new Headset Brand: ");
+                            productinfo[3] = scanner.nextLine();
+                            if (productinfo[3].isEmpty()) {
+                                productinfo[3] = oldproductBrand; // Keep the old brand if new brand is empty         
+                            }
+                            
+                            String oldproductPrice = productinfo[4];
+                            do {
+                                try{
+                                    System.out.print("Enter new Headset Price: ");
+                                    productinfo[4] = scanner.nextLine();
+                                    if (Double.parseDouble(productinfo[4]) <= 0) {
+                                        System.out.println("Price must be > 0");
+                                    }
+                                } catch (NumberFormatException e) {
+                                    productinfo[4] = oldproductPrice;
+                                }
+                            } while (Double.parseDouble(productinfo[4]) <= 0);
+                            
+                            String oldproductDesc = productinfo[5];
+                            System.out.print("Enter new Headset Description: ");
+                            productinfo[5] = scanner.nextLine();
+                            if (productinfo[5].isEmpty()) {
+                                productinfo[5] = oldproductDesc; // Keep the old description if new description is empty     
+                            }
+                            
+                            String oldproductWarranty = productinfo[6];
+                            do {
+                                try {
+                                    System.out.print("Enter new Headset Warranty: ");
+                                    productinfo[6] = scanner.nextLine();
+                                    if (Integer.parseInt(productinfo[6]) < 0) {
+                                        System.out.println("Warranty must be >= 0");
+                                    }
+                                } catch (NumberFormatException e) {
+                                    productinfo[6] = oldproductWarranty;
+                                }
+                            } while (Integer.parseInt(productinfo[6]) < 0);
+                            
+                            String oldDriver = productinfo[7];
+                            do {
+                                System.out.print("Enter new Headset Driver: ");
+                                productinfo[7] = scanner.nextLine();
+                                try {
+                                    if (Integer.parseInt((productinfo[7])) <= 0) {
+                                        System.out.println("Driver must be > 0"); // Keep the old layout if new layout is empty     
+                                    }
+                                } catch (NumberFormatException e) {
+                                    productinfo[7] = oldDriver;
+                                }
+                            } while (Integer.parseInt(productinfo[7]) <= 0);
+                            
+                            String oldSurroundSound = productinfo[8];
+                            System.out.print("Enter new Headset SurroundSound: ");
+                            productinfo[8] = scanner.nextLine();
+                            if (productinfo[8].isEmpty()) {
+                                productinfo[8] = oldSurroundSound;     
+                            }
+                            String confirmModify;
+                                do{
+                                    System.out.println("Confirm Modifying? (Y/N)");
+                                    confirmModify = scanner.nextLine();
+                                    if (confirmModify.equalsIgnoreCase("y")) {
+                                        writer.write(String.join(",", productinfo));
+                                        writer.write("\n");
+                                    }else if (confirmModify.equalsIgnoreCase("n")){
+                                        System.out.println("Failed to modify Mouse");
+                                    } else{
+                                        System.out.println("Invalid input");
+                                    }
+                                } while (!confirmModify.equalsIgnoreCase("y") && !confirmModify.equalsIgnoreCase("n"));
+
+                            } else if (choice.equalsIgnoreCase("n")){
+                                writer.write(line);// Write the original line if not modifying
+                                writer.newLine();
+                                break;
+                            }
+                    } while (!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n"));
+                    
                 } else {
                     writer.write(line);
                     writer.newLine();

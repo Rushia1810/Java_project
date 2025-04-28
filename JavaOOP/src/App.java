@@ -95,7 +95,7 @@ public class App {
                 Admin.removeProduct();
                 break;
                 case 4:
-                //modifyProduct();
+                Admin.modifyProduct();
                 break;
                 case 5:
                 UserManager.logout();
@@ -129,21 +129,16 @@ public class App {
                 }
                 break;
                 case 2:
-                Product product = new Product("KB1001","Wooting60HE",10,"Wooting",999.99,"high spec keyboard",3);
-                Product product1 = new Product("KB1002","Logitech G915",10,"Logitech",999.99,"high spec keyboard",3);
-                Customer.addtoCart(product);
-                Customer.addtoCart(product1);
-                App.customermenu();
-                //keyboardmenu();
+                Product.keyboardmenu();
                 break;
                 case 3:
-                //mousemenu();
+                Product.mousemenu();
                 break;    
                 case 4:
-                //monitormenu();
+                Product.monitormenu();
                 break;
                 case 5:
-                //headsetmenu();
+                Product.headsetmenu();
                 break;
                 case 6:
                 return;                

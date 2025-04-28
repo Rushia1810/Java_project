@@ -16,13 +16,18 @@ public class UserManager {
             
             do {
                 isDuplicate = false;
-                System.out.print("Enter username('0' to exit): ");
-                user.setusername(scanner.nextLine());
-                if (user.getusername().equalsIgnoreCase("0")) {
-                    System.out.println("Exiting registration process.");
-                    writer.close(); // Close the writer before exiting
-                    return; // Exit the method
-                }
+                do {
+                    System.out.print("Enter username('0' to exit): ");
+                    user.setusername(scanner.nextLine());
+                    if (user.getusername().equalsIgnoreCase("0")) {
+                        System.out.println("Exiting registration process.");
+                        writer.close(); // Close the writer before exiting
+                        return; // Exit the method
+                    }
+                    if (user.getusername().isEmpty()) {
+                    System.out.println("Username cannot be empty! Try again.");
+                    }
+                } while (!user.getusername().isEmpty());
                 //Check if username already exists
                 while ((line = reader.readLine()) != null) { 
                     String[] userinfo = line.split(",");
@@ -56,10 +61,15 @@ public class UserManager {
             
 
             do {
-                System.out.print("Enter phone number (must start with 601): ");
-                user.setphoneNumber(scanner.nextLong());
-                if(user.getphoneNumber() < 60100000000L || user.getphoneNumber() > 60199999999L){ 
-                    System.out.println("Invalid phone number!");
+                try{
+                    System.out.print("Enter phone number (must start with 601): ");
+                    user.setphoneNumber(scanner.nextLong());
+                    if(user.getphoneNumber() < 60100000000L || user.getphoneNumber() > 60199999999L){ 
+                        System.out.println("Invalid phone number!");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Invalid input! Please enter a valid phone number.");
+                    scanner.next(); // Clear the invalid input
                 }  
             } while (user.getphoneNumber() < 60100000000L || user.getphoneNumber() > 60199999999L);
             
@@ -131,7 +141,9 @@ public class UserManager {
             } while (!loggedIn);
             
         } catch (IOException e) {
-        e.printStackTrace();
+        System.out.println("An error occurred during login: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("An unexpected error occurred: " + e.getMessage());
         }
     }
     public static void logout(){

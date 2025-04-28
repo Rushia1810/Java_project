@@ -11,7 +11,7 @@ public class Admin extends User{
     
     public static void addProduct(){
 		Scanner scanner = new Scanner(System.in);
-        int choice = 0;
+        int choice;
         while (true) {
             System.out.println("\n\n----------------------------------------");
 		  	System.out.println("         Item you want to ADD");
@@ -53,7 +53,7 @@ public class Admin extends User{
                 break;
             
                 case 5:
-                Product.allProductMenu();
+                App.adminmenu();
                 break;
                     
             default:
@@ -75,6 +75,7 @@ public class Admin extends User{
                 System.out.print("\n*Invalid Item Code Length(XXXXXX).\n");
             }
         } while (productID.length() != 6);
+        scanner.close();
     
         if (productID.startsWith("KB")) {
             Keyboard.removeKeyboard(productID);
