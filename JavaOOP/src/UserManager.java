@@ -1,9 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class UserManager {
-    
-    
+public class UserManager {  
     public static void register(){
         User user = new User();
         try {
@@ -27,7 +25,7 @@ public class UserManager {
                     if (user.getusername().isEmpty()) {
                     System.out.println("Username cannot be empty! Try again.");
                     }
-                } while (!user.getusername().isEmpty());
+                } while (user.getusername().isEmpty());
                 //Check if username already exists
                 while ((line = reader.readLine()) != null) { 
                     String[] userinfo = line.split(",");
@@ -84,7 +82,6 @@ public class UserManager {
             
             //Write user data to file in correct format
             writer.write(user.toString());
-            writer.newLine();
             writer.close();
             System.out.println("Registered successfully!");
             App.usermenu();
@@ -147,8 +144,13 @@ public class UserManager {
         }
     }
     public static void logout(){
+        if (Cart.getCart() != null) {
+            Cart.clearCart();
+            App.usermenu();
+        } else {
         System.out.println("Successfully logged out");
         App.usermenu();
+        }
     }
 }
 

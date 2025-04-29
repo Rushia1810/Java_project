@@ -60,8 +60,7 @@ public class Admin extends User{
                 System.out.println("\n\n*Invalid input*");
             }
         }    
-	}
-    
+	} 
     public static void removeProduct(){
         Scanner scanner = new Scanner(System.in);
         String productID;
@@ -90,29 +89,32 @@ public class Admin extends User{
             removeProduct();
         }
     }
-    public static void modifyProduct(){
-        try {
-            Scanner scanner = new Scanner(System.in);
-            String productID;
-            System.out.print("Enter Item Code to Modify: ");
+    public static void modifyProduct(){  
+        Scanner scanner = new Scanner(System.in);
+        String productID;
+
+        do{
+            System.out.print("Enter Item Code to Modify ('0' to exit): ");
             productID = scanner.nextLine();
-            if (productID.length() != 6){
+            if (productID.equals("0")){
+                App.adminmenu();
+            } else if (productID.length() != 6){
                 System.out.print("\n*Invalid Item Code Length(XXXXXX).\n");
-                modifyProduct();
-            } else if (productID.startsWith("KB")) {
-                Keyboard.modifyKeyboard(productID);
-            } else if (productID.startsWith("MS")) {
-                Mouse.modifyMouse(productID);
-            } else if (productID.startsWith("MT")) {
-                Monitor.modifyMonitor(productID);
-            } else if (productID.startsWith("HS")) {
-                Headset.modifyHeadset(productID);
-            } else {
-                System.out.println("\n\n*Invalid Item Code*");
-                modifyProduct();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } while (productID.length() != 6);
+
+        if (productID.startsWith("KB")) {
+            Keyboard.modifyKeyboard(productID);
+        } else if (productID.startsWith("MS")) {
+            Mouse.modifyMouse(productID);
+        } else if (productID.startsWith("MT")) {
+            Monitor.modifyMonitor(productID);
+        } else if (productID.startsWith("HS")) {
+            Headset.modifyHeadset(productID);
+        } else {
+            System.out.println("\n\n*Invalid Item Code*");
+            modifyProduct();
         }
+        
     }
 }

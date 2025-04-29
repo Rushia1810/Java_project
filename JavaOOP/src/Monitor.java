@@ -1,10 +1,5 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Monitor extends Product{
     private String resolution;
@@ -52,8 +47,6 @@ public class Monitor extends Product{
             String line;
             boolean isDuplicate;
             int productCount = Product.getproductCount();
-            System.out.println("\nAdding Product " + (productCount+1) + ":");
-            
             
             do {
                 isDuplicate = false;
@@ -72,8 +65,8 @@ public class Monitor extends Product{
                 
                 //Check if username already exists
                 while ((line = reader.readLine()) != null) { 
-                    String[] productinfo = line.split(",");
-                    if (productinfo.length >= 1 && productinfo[0].equals(monitor.getproductID())) {
+                    String[] productInfo = line.split(",");
+                    if (productInfo.length >= 1 && productInfo[0].equals(monitor.getproductID())) {
                         System.out.println("MonitorID already exist! Try a different one.");
                         isDuplicate = true;
                         reader.close(); //Close and reopen reader to restart loop
@@ -167,8 +160,6 @@ public class Monitor extends Product{
             } while (monitor.getRefreshRate() < 60);
         scanner.nextLine();
 			
-		    //comfirmation
-            System.out.print("\n\n================================================");
             String comfirmAdding;
             do {
                 System.out.print("\nComfirm Adding? (Y/N): ");
@@ -204,20 +195,20 @@ public class Monitor extends Product{
             boolean found = false;
             
             while ((line = reader.readLine()) != null) {
-                String[] productinfo = line.split(",");
-                if (productinfo[0].equals(productID)) {
+                String[] productInfo = line.split(",");
+                if (productInfo[0].equals(productID)) {
                     found = true;
                     System.out.println("\n Product found:");
                     System.out.println(" Product Type\t: Monitor");
-                	System.out.println(" ProductID\t: " + productinfo[0]);
-                	System.out.println(" Name\t\t: " + productinfo[1]);
-                	System.out.println(" Quantity \t: " + productinfo[2]);
-                	System.out.println(" Brand\t\t: " + productinfo[3]);
-                	System.out.println(" Price\t\t: " + "RM" + productinfo[4]);
-              		System.out.println(" Description\t: " + productinfo[5]);
-                    System.out.println(" Warranty\t: " + productinfo[6] + " months");
-                    System.out.println(" Resolution\t\t: " + productinfo[7]);
-                    System.out.println(" Refresh rate\t\t: " + productinfo[8]);
+                	System.out.println(" ProductID\t: " + productInfo[0]);
+                	System.out.println(" Name\t\t: " + productInfo[1]);
+                	System.out.println(" Quantity \t: " + productInfo[2]);
+                	System.out.println(" Brand\t\t: " + productInfo[3]);
+                	System.out.println(" Price\t\t: " + "RM" + productInfo[4]);
+              		System.out.println(" Description\t: " + productInfo[5]);
+                    System.out.println(" Warranty\t: " + productInfo[6] + " months");
+                    System.out.println(" Resolution\t\t: " + productInfo[7]);
+                    System.out.println(" Refresh rate\t\t: " + productInfo[8] + "Hz");
                     String choice;
                     do{
                         System.out.println("\nDo you want to delete this product? (Y/N): ");
@@ -264,99 +255,99 @@ public class Monitor extends Product{
             boolean found = false;
             
             while ((line = reader.readLine()) != null) {
-                String[] productinfo = line.split(",");
-                if (productinfo[0].equals(productID)) {
+                String[] productInfo = line.split(",");
+                if (productInfo[0].equals(productID)) {
                     found = true;
                     System.out.println("\n Product found:");
                     System.out.println(" Product Type\t: Monitor");
-                	System.out.println(" ProductID\t: " + productinfo[0]);
-                	System.out.println(" Name\t\t: " + productinfo[1]);
-                	System.out.println(" Quantity \t: " + productinfo[2]);
-                	System.out.println(" Brand\t\t: " + productinfo[3]);
-                	System.out.println(" Price\t\t: " + "RM" + productinfo[4]);
-              		System.out.println(" Description\t: " + productinfo[5]);
-                    System.out.println(" Warranty\t: " + productinfo[6] + " months");
-                    System.out.println(" Resolution\t\t: " + productinfo[7]);
-                    System.out.println(" Refresh rate\t\t: " + productinfo[8]);
+                	System.out.println(" ProductID\t: " + productInfo[0]);
+                	System.out.println(" Name\t\t: " + productInfo[1]);
+                	System.out.println(" Quantity \t: " + productInfo[2]);
+                	System.out.println(" Brand\t\t: " + productInfo[3]);
+                	System.out.println(" Price\t\t: " + "RM" + productInfo[4]);
+              		System.out.println(" Description\t: " + productInfo[5]);
+                    System.out.println(" Warranty\t: " + productInfo[6] + " months");
+                    System.out.println(" Resolution\t\t: " + productInfo[7]);
+                    System.out.println(" Refresh rate\t\t: " + productInfo[8] + "Hz");
                     String choice;
                     do{
                         System.out.print("\n\nDo you want to modify this product? (Y/N): ");
                         Scanner scanner = new Scanner(System.in);
                         choice = scanner.nextLine();
                         if (choice.equalsIgnoreCase("y")) {
-                            String oldproductName = productinfo[1];
+                            String oldproductName = productInfo[1];
                             System.out.print("Enter new Monitor Name: ");
-                            productinfo[1] = scanner.nextLine();
-                            if (productinfo[1].isEmpty()) {
-                                productinfo[1] = oldproductName; // Keep the old name if new name is empty     
+                            productInfo[1] = scanner.nextLine();
+                            if (productInfo[1].isEmpty()) {
+                                productInfo[1] = oldproductName; // Keep the old name if new name is empty     
                                 
                             }
                             
-                            String oldproductQuantity = productinfo[2];
+                            String oldproductQuantity = productInfo[2];
                             do {
                                 System.out.print("Enter new Monitor Quantity: ");
-                                productinfo[2] = scanner.nextLine();
+                                productInfo[2] = scanner.nextLine();
                                 try {
-                                    if (Integer.parseInt(productinfo[2]) < 1) {
+                                    if (Integer.parseInt(productInfo[2]) < 1) {
                                         System.out.println("Quantity must be >= 1");
                                     }
                                 } catch (NumberFormatException e) {
-                                    productinfo[2] = oldproductQuantity;
+                                    productInfo[2] = oldproductQuantity;
                                 }
-                            } while (Integer.parseInt(productinfo[2]) < 1);
+                            } while (Integer.parseInt(productInfo[2]) < 1);
                             
-                            String oldproductBrand = productinfo[3];
+                            String oldproductBrand = productInfo[3];
                             System.out.print("Enter new Monitor Brand: ");
-                            productinfo[3] = scanner.nextLine();
-                            if (productinfo[3].isEmpty()) {
-                                productinfo[3] = oldproductBrand; // Keep the old brand if new brand is empty         
+                            productInfo[3] = scanner.nextLine();
+                            if (productInfo[3].isEmpty()) {
+                                productInfo[3] = oldproductBrand; // Keep the old brand if new brand is empty         
                             }
                             
-                            String oldproductPrice = productinfo[4];
+                            String oldproductPrice = productInfo[4];
                             do {
                                 try{
                                     System.out.print("Enter new Monitor Price: ");
-                                    productinfo[4] = scanner.nextLine();
-                                    if (Double.parseDouble(productinfo[4]) <= 0) {
+                                    productInfo[4] = scanner.nextLine();
+                                    if (Double.parseDouble(productInfo[4]) <= 0) {
                                         System.out.println("Price must be > 0");
                                     }
                                 } catch (NumberFormatException e) {
-                                    productinfo[4] = oldproductPrice;
+                                    productInfo[4] = oldproductPrice;
                                 }
-                            } while (Double.parseDouble(productinfo[4]) <= 0);
+                            } while (Double.parseDouble(productInfo[4]) <= 0);
                             
-                            String oldproductDesc = productinfo[5];
+                            String oldproductDesc = productInfo[5];
                             System.out.print("Enter new Monitor Description: ");
-                            productinfo[5] = scanner.nextLine();
-                            if (productinfo[5].isEmpty()) {
-                                productinfo[5] = oldproductDesc; // Keep the old description if new description is empty     
+                            productInfo[5] = scanner.nextLine();
+                            if (productInfo[5].isEmpty()) {
+                                productInfo[5] = oldproductDesc; // Keep the old description if new description is empty     
                             }
                             
-                            String oldproductWarranty = productinfo[6];
+                            String oldproductWarranty = productInfo[6];
                             do {
                                 try {
                                     System.out.print("Enter new Monitor Warranty: ");
-                                    productinfo[6] = scanner.nextLine();
-                                    if (Integer.parseInt(productinfo[6]) < 0) {
+                                    productInfo[6] = scanner.nextLine();
+                                    if (Integer.parseInt(productInfo[6]) < 0) {
                                         System.out.println("Warranty must be >= 0");
                                     }
                                 } catch (NumberFormatException e) {
-                                    productinfo[6] = oldproductWarranty;
+                                    productInfo[6] = oldproductWarranty;
                                 }
-                            } while (Integer.parseInt(productinfo[6]) < 0);
+                            } while (Integer.parseInt(productInfo[6]) < 0);
                             
-                            String oldResolution = productinfo[7];
+                            String oldResolution = productInfo[7];
                             System.out.print("Enter new Monitor Resolution: ");
-                            productinfo[7] = scanner.nextLine();
-                            if (productinfo[7].isEmpty()) {
-                                productinfo[7] = oldResolution; // Keep the old layout if new layout is empty     
+                            productInfo[7] = scanner.nextLine();
+                            if (productInfo[7].isEmpty()) {
+                                productInfo[7] = oldResolution; // Keep the old layout if new layout is empty     
                             }
                             
-                            String oldRefreshRate = productinfo[8];
+                            String oldRefreshRate = productInfo[8];
                             System.out.print("Enter new Monitor Refresh Rate: ");
-                            productinfo[8] = scanner.nextLine();
-                            if (productinfo[8].isEmpty()) {
-                                productinfo[8] = oldRefreshRate;
+                            productInfo[8] = scanner.nextLine();
+                            if (productInfo[8].isEmpty()) {
+                                productInfo[8] = oldRefreshRate;
                                 
                             }
                             String confirmModify;
@@ -364,7 +355,7 @@ public class Monitor extends Product{
                                     System.out.println("Confirm Modifying? (Y/N)");
                                     confirmModify = scanner.nextLine();
                                     if (confirmModify.equalsIgnoreCase("y")) {
-                                        writer.write(String.join(",", productinfo));
+                                        writer.write(String.join(",", productInfo));
                                         writer.write("\n");
                                     }else if (confirmModify.equalsIgnoreCase("n")){
                                         System.out.println("Failed to modify Mouse");

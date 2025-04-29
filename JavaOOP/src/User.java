@@ -49,7 +49,7 @@ public class User {
         }
         @Override
         public String toString(){
-            return username + "," + password + "," + role + "," + email + "," + phoneNumber;
+            return "\n" + username + "," + password + "," + role + "," + email + "," + phoneNumber;
         }
     
 }
