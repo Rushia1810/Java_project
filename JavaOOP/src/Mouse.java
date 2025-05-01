@@ -40,8 +40,8 @@ public class Mouse extends Product{
         Mouse mouse = new Mouse();
         try {
             Scanner scanner = new Scanner(System.in);
-            BufferedWriter writer = new BufferedWriter(new FileWriter("ProductList", true));
-            BufferedReader reader = new BufferedReader(new FileReader("ProductList"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("ProductList.txt", true));
+            BufferedReader reader = new BufferedReader(new FileReader("ProductList.txt"));
             String line;
             boolean isDuplicate;
             int productCount = Product.getproductCount();
@@ -68,7 +68,7 @@ public class Mouse extends Product{
                         System.out.println("MouseID already exist! Try a different one.");
                         isDuplicate = true;
                         reader.close(); //Close and reopen reader to restart loop
-                        reader = new BufferedReader(new FileReader("ProductList"));
+                        reader = new BufferedReader(new FileReader("ProductList.txt"));
                         break;
                     }
                 }
@@ -196,12 +196,19 @@ public class Mouse extends Product{
 	      	
     }
     public String display(){        
-	    return super.display() + "\n Weight\t\t\t: " + weight + "g" +
-		                         "\n ConnectionType\t\t: " + connectionType;
+	    return " ProductID\t\t: " + getproductID() + 
+        "\n Name\t\t\t: " + getproductName() + 
+        "\n Quantity\t\t: " + getproductQuantity() + 
+        "\n Brand\t\t\t: " + getproductBrand() +
+        "\n Price\t\t\t: RM" + getproductPrice() +
+        "\n Description\t\t: " + getproductDesc() +
+        "\n Warranty\t\t: " + getproductWarranty() + " months" +
+        "\n Weight\t\t\t: " + weight + "g" +
+        "\n ConnectionType\t\t: " + connectionType;
 	}
     public static void removeMouse(String productID){
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("ProductList"));
+            BufferedReader reader = new BufferedReader(new FileReader("ProductList.txt"));
             BufferedWriter writer = new BufferedWriter(new FileWriter("ProductList_temp"));
             String line;
             boolean found = false;
@@ -250,7 +257,7 @@ public class Mouse extends Product{
             writer.close();
             
             // Rename the temporary file to the original file
-            File originalFile = new File("ProductList");
+            File originalFile = new File("ProductList.txt");
             File tempFile = new File("ProductList_temp");
             originalFile.delete();
             tempFile.renameTo(originalFile);
@@ -261,7 +268,7 @@ public class Mouse extends Product{
     }
     public static void modifyMouse(String productID){
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("ProductList"));
+            BufferedReader reader = new BufferedReader(new FileReader("ProductList.txt"));
             BufferedWriter writer = new BufferedWriter(new FileWriter("ProductList_temp"));
             String line;
             boolean found = false;
@@ -287,6 +294,7 @@ public class Mouse extends Product{
                         Scanner scanner = new Scanner(System.in);
                         choice = scanner.nextLine();
                         if (choice.equalsIgnoreCase("y")) {
+                            System.out.println("Directly pressing ENTER keeps the old attribute.");
                             String oldproductName = productInfo[1];
                             System.out.print("Enter new Mouse Name: ");
                             productInfo[1] = scanner.nextLine();
@@ -369,7 +377,7 @@ public class Mouse extends Product{
                                     productInfo[8] = "Wired";
                                     break;
                                 } else if (productInfo[8].equalsIgnoreCase("n")){
-                                    productInfo[8] = "Wired";
+                                    productInfo[8] = "Wiredless";
                                     break;
                                 } else if (productInfo[8].isEmpty()){
                                     productInfo[8] = oldConnectionType;
@@ -380,7 +388,7 @@ public class Mouse extends Product{
                          
                             String confirmModify;
                             do{
-                                System.out.println("Confirm Modifying? (Y/N)");
+                                System.out.print("\nConfirm Modifying? (Y/N):");
                                 confirmModify = scanner.nextLine();
                                 if (confirmModify.equalsIgnoreCase("y")) {
                                     writer.write(String.join(",", productInfo));
@@ -413,7 +421,7 @@ public class Mouse extends Product{
             writer.close();
             
             // Rename the temporary file to the original file
-            File originalFile = new File("ProductList");
+            File originalFile = new File("ProductList.txt");
             File tempFile = new File("ProductList_temp");
             originalFile.delete();
             tempFile.renameTo(originalFile);

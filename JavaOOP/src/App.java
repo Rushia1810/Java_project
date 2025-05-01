@@ -1,4 +1,3 @@
-import java.io.*;
 import java.util.*;
 
 public class App {
@@ -12,7 +11,7 @@ public class App {
     public static void usermenu(){
         int choice = 0;
         while (true) {
-            System.out.println("\nthis is user menu");
+            logo();
             System.out.println("1.register");
             System.out.println("2.login");
             System.out.println("3.Exit");
@@ -47,10 +46,11 @@ public class App {
     public static void customermenu(){
         int choice = 0;
         while (true) {
-            System.out.println("\nthis is customer menu");
+            System.out.println("\n");
+            logo();
             System.out.println("1.View Product");
             System.out.println("2.View Cart");
-            System.out.println("3.View Receipt");
+            System.out.println("3.View Order");
             System.out.println("4.Checkout");
             System.out.println("5.Logout");
             System.out.print("Enter choice: ");
@@ -99,7 +99,7 @@ public class App {
                     }
                 } 
                 case 3:
-                //receipt();
+                Order.displayOrder();
                 break;
                 case 4:
                 paymentmenu();
@@ -117,7 +117,8 @@ public class App {
     public static void adminmenu(){
         int choice = 0;
         while (true) {
-            System.out.println("\nthis is admin menu");
+            System.out.println("\n");
+            logo();
             System.out.println("1.View Product");
             System.out.println("2.Add product");
             System.out.println("3.Remove product");
@@ -158,7 +159,8 @@ public class App {
     public static void productmenu(String userType) {
         int choice = 0;
         while (true) {
-            System.out.println("\nthis is product menu");
+            System.out.println("\n");
+            logo();
             System.out.println("1.All Products");
             System.out.println("2.Keyboard");
             System.out.println("3.Mouse");
@@ -238,12 +240,17 @@ public class App {
         }
     }
     public static void paymentmenu(){
-        //print receipt logic here
+        System.out.println("\n");
+        logo();
+        System.out.println("\n--- Checkout ---");
+        Customer.viewCart();
+        // Apply discount
+        Payment.applyDiscount();
+        Payment.displayTotal();
         
-
         int choice = 0;
         while (true) {
-            System.out.println("\nthis is payment menu");
+            System.out.println("\n");
             System.out.println("1.Online Banking");
             System.out.println("2.Credit/Debit Card");
             System.out.println("3.E-Wallet");
@@ -257,23 +264,53 @@ public class App {
                 scanner.next();
             }
 
+            Payment payment;
+            Order order = new Order();
             switch (choice) {
                 case 1:
-                //cash();
-                break;
+                    payment = new OnlineBanking(Cart.getTotal());
+                    System.out.println("\nProcessing payment...");
+                    payment.processPayment();
+                    Product.adjustProductQuantity();
+                    order.saveOrder();
+                    Cart.clearCart();
+                    customermenu();
+                    break;
                 case 2:
-                //creditCard();
-                break;    
+                    payment = new CreditCard(Cart.getTotal());
+                    System.out.println("\nProcessing payment...");
+                    payment.processPayment();
+                    Product.adjustProductQuantity();
+                    order.saveOrder();
+                    Cart.clearCart();
+                    customermenu();
+                    break;
                 case 3:
-                //eWallet();
-                break;
+                    payment = new EWallet(Cart.getTotal());
+                    System.out.println("\nProcessing payment...");
+                    payment.processPayment();
+                    Product.adjustProductQuantity();
+                    order.saveOrder();
+                    Cart.clearCart();
+                    customermenu();
+                    break;
                 case 4:
-                customermenu();
-                break;
+                    customermenu();
+                    break;
                 default:
-                System.out.println("Invalid choice");
+                    System.out.println("Invalid choice");
                         
             }
         }
+    }
+    public static void logo(){
+        System.out.println(" /$$$$$$$$ /$$      /$$ /$$   /$$ /$$$$$$$   /$$$$$$  /$$$$$$$$");
+        System.out.println("|__  $$__/| $$$    /$$$| $$  | $$| $$__  $$ /$$__  $$|__  $$__/");
+        System.out.println("   | $$   | $$$$  /$$$$| $$  | $$| $$  \\ $$| $$  \\ $$   | $$   ");
+        System.out.println("   | $$   | $$ $$/$$ $$| $$  | $$| $$$$$$$/| $$$$$$$$   | $$   ");
+        System.out.println("   | $$   | $$  $$$| $$| $$  | $$| $$__  $$| $$__  $$   | $$   ");
+        System.out.println("   | $$   | $$ \\  $| $$| $$  | $$| $$  \\ $$| $$  | $$   | $$   ");
+        System.out.println("   | $$   | $$  \\/ | $$|  $$$$$$/| $$  | $$| $$  | $$   | $$   ");
+        System.out.println("   |__/   |__/     |__/ \\______/ |__/  |__/|__/  |__/   |__/   ");
     }
 }

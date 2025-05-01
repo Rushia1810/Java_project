@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Product {
+public abstract class Product {
     private String productID;
     private String productName;
     private int productQuantity;
@@ -81,7 +81,7 @@ public class Product {
     public static void allProductMenu(){
         productCount = 0;
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("ProductList"));
+            BufferedReader reader = new BufferedReader(new FileReader("ProductList.txt"));
             String line;
             Product ProductArray[] = new Product[100];
             int i = 0;
@@ -156,7 +156,7 @@ public class Product {
     public static void keyboardmenu(){
         Keyboard.setKeyboardCount(0);
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("ProductList"));
+            BufferedReader reader = new BufferedReader(new FileReader("ProductList.txt"));
             String line;
             Product ProductArray[] = new Product[100];
             int i = 0;
@@ -196,7 +196,7 @@ public class Product {
     public static void mousemenu(){
         Mouse.setMouseCount(0);
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("ProductList"));
+            BufferedReader reader = new BufferedReader(new FileReader("ProductList.txt"));
             String line;
             Product ProductArray[] = new Product[100];
             int i = 0;
@@ -236,7 +236,7 @@ public class Product {
     public static void monitormenu(){
         Monitor.setMonitorCount(0);
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("ProductList"));
+            BufferedReader reader = new BufferedReader(new FileReader("ProductList.txt"));
             String line;
             Product ProductArray[] = new Product[100];
             int i = 0;
@@ -276,7 +276,7 @@ public class Product {
     public static void headsetmenu(){
         Headset.setHeadsetCount(0);
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("ProductList"));
+            BufferedReader reader = new BufferedReader(new FileReader("ProductList.txt"));
             String line;
             Product ProductArray[] = new Product[100];
             int i = 0;
@@ -338,7 +338,7 @@ public class Product {
                     String name = scanner.nextLine();
                     productCount = 0;
                     try {
-                        BufferedReader reader = new BufferedReader(new FileReader("ProductList"));
+                        BufferedReader reader = new BufferedReader(new FileReader("ProductList.txt"));
                         String line;
                         Product ProductArray[] = new Product[100];
                         int i = 0;
@@ -400,6 +400,7 @@ public class Product {
                         }catch (IOException e){
                             e.printStackTrace();
                         }
+                    Customer.addtoCart();
                 break;
                 case 2:
                     scanner.nextLine();
@@ -407,7 +408,7 @@ public class Product {
                     String brand = scanner.nextLine();
                     productCount = 0;
                     try {
-                        BufferedReader reader = new BufferedReader(new FileReader("ProductList"));
+                        BufferedReader reader = new BufferedReader(new FileReader("ProductList.txt"));
                         String line;
                         Product ProductArray[] = new Product[100];
                         int i = 0;
@@ -469,6 +470,7 @@ public class Product {
                         }catch (IOException e){
                             e.printStackTrace();
                         }
+                    Customer.addtoCart();
                 break;
                 case 3:
                     System.out.print("Enter minimum price: ");
@@ -477,7 +479,7 @@ public class Product {
                     double maxPrice = scanner.nextDouble();
                     productCount = 0;
                     try {
-                        BufferedReader reader = new BufferedReader(new FileReader("ProductList"));
+                        BufferedReader reader = new BufferedReader(new FileReader("ProductList.txt"));
                         String line;
                         Product ProductArray[] = new Product[100];
                         int i = 0;
@@ -539,6 +541,7 @@ public class Product {
                         }catch (IOException e){
                             e.printStackTrace();
                         }
+                    Customer.addtoCart();
                 break;
                 case 4:
                     if (userType == "customer"){
@@ -552,14 +555,38 @@ public class Product {
             }
         }
     }
-    public String display(){        
-        return " ProductID\t\t: " + productID + 
-            "\n Name\t\t\t: " + productName + 
-            "\n Quantity\t\t: " + productQuantity + 
-            "\n Brand\t\t\t: " + productBrand +
-            "\n Price\t\t\t: RM" + productPrice +
-            "\n Description\t\t: " + productDesc +
-            "\n Warranty\t\t: " + productWarranty + " months";
+    public static void adjustProductQuantity() {
+        for (Product product : Cart.getCart()) {
+            String productID = product.getproductID();
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader("ProductList.txt"));
+                BufferedWriter writer = new BufferedWriter(new FileWriter("ProductList_temp"));
+                String line;
+                
+                while ((line = reader.readLine()) != null) {
+                    String[] productInfo = line.split(",");
+                    if (productInfo[0].equals(productID)) {
+                        int quantity = Integer.parseInt(productInfo[2]);
+                        quantity--;
+                        productInfo[2] = String.valueOf(quantity);
+                    }
+                    writer.write(String.join(",", productInfo));
+                    writer.write("\n");
+                }
+                reader.close();
+                writer.close();
+            
+                // Rename the temporary file to the original file
+                File originalFile = new File("ProductList.txt");
+                File tempFile = new File("ProductList_temp");
+                originalFile.delete();
+                tempFile.renameTo(originalFile);
+                        
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }  
     }
+    public abstract String display();
 }
 

@@ -1,0 +1,4 @@
+rushia,12345678,Customer,wong@gmail.com,60178767672
+$jay,12345678,Admin,jay@gmail.com,60123456789
+hhh,12345678,Customer,hhh@gmail.com,60155555555
+gigi,Gimurin1810,Customer,gigimurin@gmail.com,60178767672

@@ -41,8 +41,8 @@ public class Keyboard extends Product{
 
         try{
             Scanner scanner = new Scanner(System.in);
-            BufferedWriter writer = new BufferedWriter(new FileWriter("ProductList", true));
-            BufferedReader reader = new BufferedReader(new FileReader("ProductList"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("ProductList.txt", true));
+            BufferedReader reader = new BufferedReader(new FileReader("ProductList.txt"));
             String line;
             boolean isDuplicate;
             int productCount = Product.getproductCount();
@@ -69,7 +69,7 @@ public class Keyboard extends Product{
                         System.out.println("KeyboardID already exist! Try a different one.");
                         isDuplicate = true;
                         reader.close(); //Close and reopen reader to restart loop
-                        reader = new BufferedReader(new FileReader("ProductList"));
+                        reader = new BufferedReader(new FileReader("ProductList.txt"));
                         break;
                     }
                 }
@@ -183,12 +183,19 @@ public class Keyboard extends Product{
 	      	
     }
     public String display(){        
-	    return super.display() + "\n Layout\t\t\t: " + layout + 
-		                         "\n Type\t\t\t: " + type;                  
+	    return " ProductID\t\t: " + getproductID() + 
+        "\n Name\t\t\t: " + getproductName() + 
+        "\n Quantity\t\t: " + getproductQuantity() + 
+        "\n Brand\t\t\t: " + getproductBrand() +
+        "\n Price\t\t\t: RM" + getproductPrice() +
+        "\n Description\t\t: " + getproductDesc() +
+        "\n Warranty\t\t: " + getproductWarranty() + " months"+
+        "\n Layout\t\t\t: " + layout + 
+        "\n Type\t\t\t: " + type;                  
 	}
     public static void removeKeyboard(String productID){
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("ProductList"));
+            BufferedReader reader = new BufferedReader(new FileReader("ProductList.txt"));
             BufferedWriter writer = new BufferedWriter(new FileWriter("ProductList_temp"));
             String line;
             boolean found = false;
@@ -237,7 +244,7 @@ public class Keyboard extends Product{
             writer.close();
             
             // Rename the temporary file to the original file
-            File originalFile = new File("ProductList");
+            File originalFile = new File("ProductList.txt");
             File tempFile = new File("ProductList_temp");
             originalFile.delete();
             tempFile.renameTo(originalFile);
@@ -248,7 +255,7 @@ public class Keyboard extends Product{
     }
     public static void modifyKeyboard(String productID){
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("ProductList"));
+            BufferedReader reader = new BufferedReader(new FileReader("ProductList.txt"));
             BufferedWriter writer = new BufferedWriter(new FileWriter("ProductList_temp"));
             String line;
             boolean found = false;
@@ -274,6 +281,7 @@ public class Keyboard extends Product{
                         System.out.print("\n\nDo you want to modify this product? (Y/N): ");
                         choice = scanner.nextLine();
                         if (choice.equalsIgnoreCase("y")) {
+                            System.out.println("Directly pressing ENTER keeps the old attribute.");
                             String oldproductName = productInfo[1];
                             System.out.print("Enter new Keyboard Name: ");
                             productInfo[1] = scanner.nextLine();
@@ -351,7 +359,7 @@ public class Keyboard extends Product{
                             }
                             String confirmModify;
                                 do{
-                                    System.out.println("Confirm Modifying? (Y/N)");
+                                    System.out.print("\nConfirm Modifying? (Y/N):");
                                     confirmModify = scanner.nextLine();
                                     if (confirmModify.equalsIgnoreCase("y")) {
                                         writer.write(String.join(",", productInfo));
@@ -385,7 +393,7 @@ public class Keyboard extends Product{
             writer.close();
             
             // Rename the temporary file to the original file
-            File originalFile = new File("ProductList");
+            File originalFile = new File("ProductList.txt");
             File tempFile = new File("ProductList_temp");
             originalFile.delete();
             tempFile.renameTo(originalFile);

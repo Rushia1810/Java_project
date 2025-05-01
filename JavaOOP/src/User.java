@@ -2,13 +2,13 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private long phoneNumber;
+    private String phoneNumber;
     private String role;
     
         public User(){
     
         }    
-        public User(String username, String password, String role, String email, long phoneNumber){
+        public User(String username, String password, String role, String email, String phoneNumber){
             this.username = username;
             this.password = password;
             this.email = email;
@@ -28,7 +28,7 @@ public class User {
         public String getemail(){
             return email;
         }
-        public long getphoneNumber(){
+        public String getphoneNumber(){
             return phoneNumber;
         }
         //set methods
@@ -44,7 +44,7 @@ public class User {
         public void setemail(String email){
             this.email = email;
         }
-        public void setphoneNumber(long phoneNumber){
+        public void setphoneNumber(String phoneNumber){
             this.phoneNumber = phoneNumber;
         }
         @Override

@@ -1,0 +1,16 @@
+KB1001,HyperX Alloy Origins,10,HyperX,499.99,Durable aluminum body with RGB lighting,24,Full Size,Linear
+KB1002,Razer Huntsman Mini,7,Razer,499.99,Compact 60% keyboard with optical switches,12,60%,Clicky
+KB1003,Logitech G Pro X,5,Logitech,599.99,Hot-swappable switches and customizable RGB,24,TKL,Tactile
+KB1004,SteelSeries Apex Pro,2,SteelSeries,1069.99,Adjustable actuation with OLED display,36,Full Size,Linear  
+MS1001,Logitech G Pro X Superlight,8,Logitech,599.99,Ultra-light wireless gaming mouse,24,63,Wireless
+MS1002,Razer DeathAdder V2,12,Razer,249.99,Ergonomic wired mouse with fast response,24,82,Wired
+MS1003,Glorious Model O,6,Glorious,275.00,Honeycomb shell for ultra-lightweight design,12,67,Wired
+MS1004,SteelSeries Aerox 5 Wireless,4,SteelSeries,625.00,Water-resistant multi-genre wireless mouse,24,74,Wireless  
+MT1001,Dell UltraSharp U2723QE,5,Dell,2699.99,27-inch 4K monitor with USB-C hub and IPS panel,36,3840x2160,60
+MT1002,ASUS TUF Gaming VG27AQ,10,ASUS,1599.99,27-inch QHD gaming monitor with ELMB and G-Sync,36,2560x1440,165
+MT1003,LG UltraGear 27GP950-B,7,LG,999.99,27-inch 4K Nano IPS gaming monitor with HDMI 2.1,24,3840x2160,144
+MT1004,AOC 24G2,12,AOC,899.99,24-inch affordable gaming monitor with IPS panel,24,1920x1080,144
+HS1001,HyperX Cloud II,10,HyperX,399.99,Comfortable gaming headset with virtual surround sound,24,53,7.1
+HS1002,SteelSeries Arctis 7,6,SteelSeries,796.00,Wireless headset with immersive audio experience,24,40,DTS:X
+HS1003,Razer BlackShark V2,8,Razer,499.99,Esports headset with THX spatial audio and clarity,24,50,THX Spatial Audio
+HS1004,Logitech G432,12,Logitech,249.99,Affordable headset with detailed positional audio,24,50,DTS Headphone:X 2.0

@@ -2,13 +2,20 @@ import java.util.*;
 import java.io.*;
 
 public class UserManager {  
+    private static String loggedInUsername;
+
+    public static String getLoggedInUsername() {
+        return loggedInUsername;
+    }
+    public static void setLoggedInUsername(String username) {
+        loggedInUsername = username;
+    }
     public static void register(){
         User user = new User();
         try {
             Scanner scanner = new Scanner(System.in);
-            BufferedWriter writer = new BufferedWriter(new FileWriter("UserList", true));
-            //Read existing usernames to prevent duplicates**
-            BufferedReader reader = new BufferedReader(new FileReader("UserList"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("UserList.txt", true));
+            BufferedReader reader = new BufferedReader(new FileReader("UserList.txt"));
             String line;
             boolean isDuplicate;
             
@@ -33,7 +40,7 @@ public class UserManager {
                         System.out.println("Username already taken! Try a different one.");
                         isDuplicate = true;
                         reader.close(); //Close and reopen reader to restart loop
-                        reader = new BufferedReader(new FileReader("UserList"));
+                        reader = new BufferedReader(new FileReader("UserList.txt"));
                         break;
                     }
                 }
@@ -59,19 +66,19 @@ public class UserManager {
             
 
             do {
-                try{
-                    System.out.print("Enter phone number (must start with 601): ");
-                    user.setphoneNumber(scanner.nextLong());
-                    if(user.getphoneNumber() < 60100000000L || user.getphoneNumber() > 60199999999L){ 
+                System.out.print("Enter phone number (must start with 601): ");
+                user.setphoneNumber(scanner.nextLine());
+                if(user.getphoneNumber().startsWith("6011")){ 
+                    if (user.getphoneNumber().length() != 12) {
+                        System.out.println("Invalid phone number!");
+                    } 
+                } else if (!user.getphoneNumber().startsWith("6010") || !user.getphoneNumber().startsWith("6012") || !user.getphoneNumber().startsWith("6013") || !user.getphoneNumber().startsWith("6014") || !user.getphoneNumber().startsWith("6016") || !user.getphoneNumber().startsWith("6017") || !user.getphoneNumber().startsWith("6018") || !user.getphoneNumber().startsWith("6019")) {
+                    if (user.getphoneNumber().length() != 11) {
                         System.out.println("Invalid phone number!");
                     }
-                } catch (Exception e) {
-                    System.out.println("Invalid input! Please enter a valid phone number.");
-                    scanner.next(); // Clear the invalid input
-                }  
-            } while (user.getphoneNumber() < 60100000000L || user.getphoneNumber() > 60199999999L);
+                }
+            } while (!user.getphoneNumber().startsWith("6011") && !user.getphoneNumber().startsWith("6010") && !user.getphoneNumber().startsWith("6012") && !user.getphoneNumber().startsWith("6013") && !user.getphoneNumber().startsWith("6014") && !user.getphoneNumber().startsWith("6016") && !user.getphoneNumber().startsWith("6017") && !user.getphoneNumber().startsWith("6018") && !user.getphoneNumber().startsWith("6019"));
             
-            scanner.nextLine(); // Consume the newline character left by nextLong()
 
             //Ensure role is either customer or admin
             if (user.getusername().startsWith("$")){
@@ -92,16 +99,17 @@ public class UserManager {
     }
     public static void login(){
         try {
+            BufferedReader reader = new BufferedReader(new FileReader("UserList.txt"));
             Scanner scanner = new Scanner(System.in);
             boolean loggedIn = false; 
             boolean userFound = false;      
             String line;
 
             do {
-                BufferedReader reader = new BufferedReader(new FileReader("UserList"));
+                reader = new BufferedReader(new FileReader("UserList.txt"));
                 System.out.print("Enter your username to login('0' to exit ): ");
                 String loginUsername = scanner.nextLine();
-                
+
                 while ((line = reader.readLine()) != null) {
                     String[] userinfo = line.split(",");
                     if (userinfo[0].equals(loginUsername)) {
@@ -113,6 +121,7 @@ public class UserManager {
                         if (userinfo[1].equals(loginPassword)) {
                             System.out.println("Login successful!");
                             loggedIn = true;
+                            setLoggedInUsername(loginUsername);
                         } else {
                             System.out.println("Invalid password.");
                             break;
@@ -132,20 +141,18 @@ public class UserManager {
                     }              
                 } if (!userFound){
                     System.out.println("Invalid username.");
-                }
-                
+                } 
                 reader.close();               
             } while (!loggedIn);
             
-        } catch (IOException e) {
-        System.out.println("An error occurred during login: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("An unexpected error occurred: " + e.getMessage());
+            e.printStackTrace();
         }
     }
     public static void logout(){
         if (Cart.getCart() != null) {
             Cart.clearCart();
+            System.out.println("Successfully logged out");
             App.usermenu();
         } else {
         System.out.println("Successfully logged out");

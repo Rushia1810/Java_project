@@ -7,7 +7,7 @@ public class Customer extends User{
     public Customer(){
         cart = new Cart();
     }
-    public Customer(String username, String password, String role, String email, long phoneNumber, Cart cart){
+    public Customer(String username, String password, String role, String email, String phoneNumber, Cart cart){
         super(username, password, role, email, phoneNumber);
         cart = new Cart();
     }
@@ -20,7 +20,7 @@ public class Customer extends User{
     }
     public static void viewCart(){
         Cart.displaycart();
-        System.out.printf("Total Price: " + "RM%.2f\n" , Cart.getTotal());
+        System.out.printf("Subtotal: " + "\t\t\tRM%.2f\n" , Cart.getTotal());
     }
     public static void addtoCart(){
         Scanner scanner = new Scanner(System.in);
@@ -34,7 +34,7 @@ public class Customer extends User{
                 System.out.println("Invalid input");
             } else {
                 try {
-                    BufferedReader reader = new BufferedReader(new FileReader("ProductList"));
+                    BufferedReader reader = new BufferedReader(new FileReader("ProductList.txt"));
                     String line;
                     boolean found = false;
                     while ((line = reader.readLine()) != null) {
@@ -85,12 +85,7 @@ public class Customer extends User{
                     }
                     if (!found) {
                         System.out.println("Product not found.");
-                        try{
-                            Thread.sleep(2000);
-                        } catch (InterruptedException e) {
-                            System.out.println("Error: " + e.getMessage());
-                        }
-                        Product.allProductMenu();
+                        App.productmenu("customer");
                     }
                     reader.close();
             
@@ -117,7 +112,7 @@ public class Customer extends User{
                for (Product product: products){
                     if (product.getproductID().equals(productCode)){
                         Cart.removeProduct(product);
-                        System.out.println("Product removed from cart: " + product.getproductName());
+                        System.out.println("Product removed from cart: " + product.getproductName() + "x1");
                         found = true;
                         break;
                     } 
@@ -127,8 +122,5 @@ public class Customer extends User{
                 }
             }
         } while (!productCode.equals("0"));
-    }
-    public void checkout(){
-        Cart.clearCart();
     }
 }

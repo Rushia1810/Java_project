@@ -26,11 +26,11 @@ public class Cart {
     }
     public static void displaycart(){
         if (products == null) {
-            System.out.println("Cart is empty\n");
+            System.out.println("Cart is empty");
             App.customermenu();
         }
         if (products.isEmpty()){
-            System.out.println("Cart is empty\n");
+            System.out.println("Cart is empty");
             App.customermenu();
         }
         
