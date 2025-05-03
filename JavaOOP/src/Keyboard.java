@@ -215,10 +215,9 @@ public class Keyboard extends Product{
                     System.out.println(" Warranty\t: " + productInfo[6] + " months");
                     System.out.println(" Layout\t\t: " + productInfo[7]);
                     System.out.println(" Type\t\t: " + productInfo[8]);
-                    System.out.print("\n\nDo you want to modify this product? (Y/N): ");
                     String choice;
                     do{
-                        System.out.println("\nDo you want to delete this product? (Y/N): ");
+                        System.out.print("\nDo you want to delete this product? (Y/N): ");
                         Scanner scanner = new Scanner(System.in);
                         choice = scanner.nextLine();
                         if (choice.equalsIgnoreCase("y")) {

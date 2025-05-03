@@ -269,7 +269,6 @@ public class App {
             switch (choice) {
                 case 1:
                     payment = new OnlineBanking(Cart.getTotal());
-                    System.out.println("\nProcessing payment...");
                     payment.processPayment();
                     Product.adjustProductQuantity();
                     order.saveOrder();
@@ -278,7 +277,6 @@ public class App {
                     break;
                 case 2:
                     payment = new CreditCard(Cart.getTotal());
-                    System.out.println("\nProcessing payment...");
                     payment.processPayment();
                     Product.adjustProductQuantity();
                     order.saveOrder();
@@ -287,7 +285,6 @@ public class App {
                     break;
                 case 3:
                     payment = new EWallet(Cart.getTotal());
-                    System.out.println("\nProcessing payment...");
                     payment.processPayment();
                     Product.adjustProductQuantity();
                     order.saveOrder();

@@ -68,18 +68,28 @@ public class UserManager {
             do {
                 System.out.print("Enter phone number (must start with 601): ");
                 user.setphoneNumber(scanner.nextLine());
-                if(user.getphoneNumber().startsWith("6011")){ 
-                    if (user.getphoneNumber().length() != 12) {
-                        System.out.println("Invalid phone number!");
-                    } 
-                } else if (!user.getphoneNumber().startsWith("6010") || !user.getphoneNumber().startsWith("6012") || !user.getphoneNumber().startsWith("6013") || !user.getphoneNumber().startsWith("6014") || !user.getphoneNumber().startsWith("6016") || !user.getphoneNumber().startsWith("6017") || !user.getphoneNumber().startsWith("6018") || !user.getphoneNumber().startsWith("6019")) {
-                    if (user.getphoneNumber().length() != 11) {
-                        System.out.println("Invalid phone number!");
+                String phoneNumber = user.getphoneNumber();
+            
+                // List of valid prefixes
+                String[] validPrefixes = {"6010", "6011", "6012", "6013", "6014", "6016", "6017", "6018", "6019"};
+                boolean isValidPrefix = false;
+            
+                // Check if the phone number starts with a valid prefix
+                for (String prefix : validPrefixes) {
+                    if (phoneNumber.startsWith(prefix)) {
+                        isValidPrefix = true;
+                        break;
                     }
                 }
-            } while (!user.getphoneNumber().startsWith("6011") && !user.getphoneNumber().startsWith("6010") && !user.getphoneNumber().startsWith("6012") && !user.getphoneNumber().startsWith("6013") && !user.getphoneNumber().startsWith("6014") && !user.getphoneNumber().startsWith("6016") && !user.getphoneNumber().startsWith("6017") && !user.getphoneNumber().startsWith("6018") && !user.getphoneNumber().startsWith("6019"));
             
-
+                // Validate phone number length and prefix
+                if (!isValidPrefix || (phoneNumber.startsWith("6011") && phoneNumber.length() != 12) || (!phoneNumber.startsWith("6011") && phoneNumber.length() != 11)) {
+                    System.out.println("Invalid phone number!");
+                } else {
+                    break; // Exit the loop if the phone number is valid
+                }
+            } while (true);
+            
             //Ensure role is either customer or admin
             if (user.getusername().startsWith("$")){
                 user.setrole("Admin");

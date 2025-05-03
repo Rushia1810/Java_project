@@ -1,7 +1,7 @@
 KB1001,HyperX Alloy Origins,10,HyperX,499.99,Durable aluminum body with RGB lighting,24,Full Size,Linear
 KB1002,Razer Huntsman Mini,7,Razer,499.99,Compact 60% keyboard with optical switches,12,60%,Clicky
 KB1003,Logitech G Pro X,5,Logitech,599.99,Hot-swappable switches and customizable RGB,24,TKL,Tactile
-KB1004,SteelSeries Apex Pro,-2,SteelSeries,1069.99,Adjustable actuation with OLED display,36,Full Size,Linear  
+KB1004,SteelSeries Apex Pro,4,SteelSeries,1069.99,Adjustable actuation with OLED display,36,Full Size,Linear  
 MS1001,Logitech G Pro X Superlight,8,Logitech,599.99,Ultra-light wireless gaming mouse,24,63,Wireless
 MS1002,Razer DeathAdder V2,12,Razer,249.99,Ergonomic wired mouse with fast response,24,82,Wired
 MS1003,Glorious Model O,6,Glorious,275.00,Honeycomb shell for ultra-lightweight design,12,67,Wired

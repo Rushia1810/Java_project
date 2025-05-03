@@ -73,7 +73,6 @@ public class Admin extends User{
                 System.out.print("\n*Invalid Item Code Length(XXXXXX).\n");
             }
         } while (productID.length() != 6);
-        scanner.close();
     
         if (productID.startsWith("KB")) {
             Keyboard.removeKeyboard(productID);

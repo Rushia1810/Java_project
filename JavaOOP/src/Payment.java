@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 public abstract class Payment {
     private double amount;

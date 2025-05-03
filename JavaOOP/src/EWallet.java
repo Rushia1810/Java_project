@@ -11,25 +11,36 @@ public class EWallet extends Payment {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\nProcessing E-Wallet Payment:");
         
-        String phoneNumber;
+        String phoneNumber;    
         do {
-            System.out.print("Enter phone number (starting with 601, 11 digits total) ('0' to exit ): ");
+            System.out.print("Enter phone number (must start with 601) ('0' to exit): ");
             phoneNumber = scanner.nextLine();
+
             if (phoneNumber.equalsIgnoreCase("0")) {
                 System.out.println("Exiting payment process.");
                 System.out.println("Payment cancelled.");
                 App.paymentmenu();
             }
-            if(phoneNumber.startsWith("6011")){ 
-                if (phoneNumber.length() != 12) {
-                    System.out.println("Invalid phone number!");
-                } 
-            } else if (!phoneNumber.startsWith("6010") || !phoneNumber.startsWith("6012") || !phoneNumber.startsWith("6013") || !phoneNumber.startsWith("6014") || !phoneNumber.startsWith("6016") || !phoneNumber.startsWith("6017") || !phoneNumber.startsWith("6018") || !phoneNumber.startsWith("6019")) {
-                if (phoneNumber.length() != 11) {
-                    System.out.println("Invalid phone number!");
+        
+            // List of valid prefixes
+            String[] validPrefixes = {"6010", "6011", "6012", "6013", "6014", "6016", "6017", "6018", "6019"};
+            boolean isValidPrefix = false;
+        
+            // Check if the phone number starts with a valid prefix
+            for (String prefix : validPrefixes) {
+                if (phoneNumber.startsWith(prefix)) {
+                    isValidPrefix = true;
+                    break;
                 }
             }
-        }  while (!phoneNumber.startsWith("6011") && !phoneNumber.startsWith("6010") && !phoneNumber.startsWith("6012") && !phoneNumber.startsWith("6013") && !phoneNumber.startsWith("6014") && !phoneNumber.startsWith("6016") && !phoneNumber.startsWith("6017") && !phoneNumber.startsWith("6018") && !phoneNumber.startsWith("6019"));
+        
+            // Validate phone number length and prefix
+            if (!isValidPrefix || (phoneNumber.startsWith("6011") && phoneNumber.length() != 12) || (!phoneNumber.startsWith("6011") && phoneNumber.length() != 11)) {
+                System.out.println("Invalid phone number!");
+            } else {
+                break; // Exit the loop if the phone number is valid
+            }
+        } while (true);
 
         String pin;
         do {

@@ -400,7 +400,7 @@ public abstract class Product {
                         }catch (IOException e){
                             e.printStackTrace();
                         }
-                    Customer.addtoCart();
+                   
                 break;
                 case 2:
                     scanner.nextLine();
@@ -470,7 +470,7 @@ public abstract class Product {
                         }catch (IOException e){
                             e.printStackTrace();
                         }
-                    Customer.addtoCart();
+                    
                 break;
                 case 3:
                     System.out.print("Enter minimum price: ");
@@ -541,7 +541,7 @@ public abstract class Product {
                         }catch (IOException e){
                             e.printStackTrace();
                         }
-                    Customer.addtoCart();
+                    
                 break;
                 case 4:
                     if (userType == "customer"){

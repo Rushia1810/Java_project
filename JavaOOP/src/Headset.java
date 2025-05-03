@@ -223,7 +223,7 @@ public class Headset extends Product{
                     System.out.println(" SurroundSound\t: " + productInfo[8]);
                     String choice;
                     do{
-                        System.out.println("\nDo you want to delete this product? (Y/N): ");
+                        System.out.print("\nDo you want to delete this product? (Y/N): ");
                         Scanner scanner = new Scanner(System.in);
                         choice = scanner.nextLine();
                         if (choice.equalsIgnoreCase("y")) {

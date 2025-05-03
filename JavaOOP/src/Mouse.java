@@ -227,10 +227,10 @@ public class Mouse extends Product{
               		System.out.println(" Description\t: " + productInfo[5]);
                     System.out.println(" Warranty\t: " + productInfo[6] + " months");
                     System.out.println(" Weight\t\t: " + productInfo[7] + "g");
-                    System.out.println(" ConnectionType\t\t: " + productInfo[8]);
+                    System.out.println(" ConnectionType\t: " + productInfo[8]);
                     String choice;
                     do{
-                        System.out.println("\nDo you want to delete this product? (Y/N): ");
+                        System.out.print("\nDo you want to delete this product? (Y/N): ");
                         Scanner scanner = new Scanner(System.in);
                         choice = scanner.nextLine();
                         if (choice.equalsIgnoreCase("y")) {
